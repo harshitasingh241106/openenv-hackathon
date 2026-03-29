@@ -1,3 +1,14 @@
+---
+title: Customer Support Ticket Router
+emoji: 🎫
+colorFrom: blue
+colorTo: green
+sdk: docker
+pinned: false
+tags:
+  - openenv
+---
+
 # Customer Support Ticket Router — OpenEnv Environment
 
 An OpenEnv environment where an AI agent reads customer support tickets
