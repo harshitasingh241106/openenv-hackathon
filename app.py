@@ -40,17 +40,17 @@ def root():
 def health():
     return {"status": "ok"}
 
+from typing import Optional
+
 @app.post("/reset")
-def reset(request: ResetRequest = None):
-    if request is None:
-        request = ResetRequest(task_number=1)
-    env = envs[request.task_number]
+def reset(request: Optional[ResetRequest] = None):
+    task_number = request.task_number if request else 1
+    env = envs[task_number]
     obs = env.reset()
     return {
         "observation": obs.model_dump(),
         "status": "reset complete"
     }
-
 @app.post("/step")
 def step(request: StepRequest):
     env = envs[request.task_number]
