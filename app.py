@@ -41,7 +41,9 @@ def health():
     return {"status": "ok"}
 
 @app.post("/reset")
-def reset(request: ResetRequest):
+def reset(request: ResetRequest = None):
+    if request is None:
+        request = ResetRequest(task_number=1)
     env = envs[request.task_number]
     obs = env.reset()
     return {
