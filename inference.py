@@ -27,6 +27,8 @@ def run_task(task_number: int, episodes: int = 3):
         print("Department Routing (Easy)")
     elif task_number == 2:
         print("Department + Urgency (Medium)")
+    elif task_number == 4:
+        print("Expert Escalation Manager (Expert)")
     else:
         print("Full Ticket Handling (Hard)")
     print('='*50)
@@ -82,6 +84,7 @@ def main():
     scores["task1"] = run_task(task_number=1, episodes=3)
     scores["task2"] = run_task(task_number=2, episodes=3)
     scores["task3"] = run_task(task_number=3, episodes=3)
+    scores["task4"] = run_task(task_number=4, episodes=3)
 
     print(f"\n{'='*50}")
     print("FINAL BASELINE SCORES")

@@ -29,6 +29,7 @@ simulates that challenge — an AI agent must read each ticket and decide:
 | Task 1 | Easy | Route ticket to correct department | 1.0 |
 | Task 2 | Medium | Route ticket + classify urgency | 1.0 |
 | Task 3 | Hard | Route + urgency + generate reply | 1.0 |
+| Task 4 | Expert | Route + urgency + escalation decision + reason + reply | 1.0 |
 
 ## Baseline Scores
 
@@ -36,10 +37,11 @@ Tested with `meta-llama/Llama-3.1-8B-Instruct` via Hugging Face router:
 
 | Task | Score |
 |------|-------|
-| Task 1 — Department Routing | 0.67 |
-| Task 2 — Department + Urgency | 1.00 |
-| Task 3 — Full Ticket Handling | 0.76 |
-| **Overall Average** | **0.81** |
+| Task 1 — Department Routing (Easy) | 1.00 |
+| Task 2 — Department + Urgency (Medium) | 0.83 |
+| Task 3 — Full Ticket Handling (Hard) | 0.69 |
+| Task 4 — Expert Escalation Manager (Expert) | 0.35 |
+| **Overall Average** | **0.72** |
 
 ## Observation Space
 
