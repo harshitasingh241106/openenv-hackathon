@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from typing import Optional
 from environment import CustomerSupportEnv, Action
 
 app = FastAPI(
@@ -8,14 +9,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Store environments for each task
 envs = {
     1: CustomerSupportEnv(task_number=1),
     2: CustomerSupportEnv(task_number=2),
     3: CustomerSupportEnv(task_number=3)
 }
-
-# ─── Request/Response Models ──────────────────────────────────────────────────
 
 class StepRequest(BaseModel):
     response: str
@@ -23,9 +21,6 @@ class StepRequest(BaseModel):
 
 class ResetRequest(BaseModel):
     task_number: int = 1
-
-
-# ─── Endpoints ────────────────────────────────────────────────────────────────
 
 @app.get("/")
 def root():
@@ -40,8 +35,6 @@ def root():
 def health():
     return {"status": "ok"}
 
-from typing import Optional
-
 @app.post("/reset")
 def reset(request: Optional[ResetRequest] = None):
     task_number = request.task_number if request else 1
@@ -51,11 +44,11 @@ def reset(request: Optional[ResetRequest] = None):
         "observation": obs.model_dump(),
         "status": "reset complete"
     }
+
 @app.post("/step")
 def step(request: StepRequest):
     env = envs[request.task_number]
     action = Action(response=request.response)
-
     try:
         obs, reward, done, info = env.step(action)
         return {
@@ -76,23 +69,15 @@ def state(task_number: int = 1):
 def list_tasks():
     return {
         "tasks": [
-            {
-                "id": "task1",
-                "name": "Department Routing",
-                "difficulty": "easy",
-                "description": "Route ticket to correct department"
-            },
-            {
-                "id": "task2",
-                "name": "Department and Urgency",
-                "difficulty": "medium",
-                "description": "Route ticket and classify urgency"
-            },
-            {
-                "id": "task3",
-                "name": "Full Ticket Handling",
-                "difficulty": "hard",
-                "description": "Route, classify urgency, and generate reply"
-            }
+            {"id": "task1", "name": "Department Routing", "difficulty": "easy"},
+            {"id": "task2", "name": "Department and Urgency", "difficulty": "medium"},
+            {"id": "task3", "name": "Full Ticket Handling", "difficulty": "hard"}
         ]
     }
+
+def main():
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=7860)
+
+if __name__ == "__main__":
+    main()
