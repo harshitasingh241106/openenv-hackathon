@@ -7,7 +7,7 @@ Department: <department>
 Urgency: <urgency>
 Reply: <your suggested reply to the customer>
 
-For Department choose from: Billing, Technical, General
+For Department choose from: Billing, Technical, General, Security
 For Urgency choose from: Low, Medium, High
 For Reply: write a professional, helpful response to the customer in 1-2 sentences.
 
@@ -20,14 +20,6 @@ def get_task3_tickets():
     return TICKETS
 
 def grade_task3(ticket_id, agent_answer):
-    """
-    Scores the agent on department, urgency, and reply quality.
-    0.3 points for correct department
-    0.3 points for correct urgency
-    0.4 points for reply quality (keyword matching)
-    Total: 0.0 to 1.0
-    """
-    # Find the correct ticket
     correct = None
     for ticket in TICKETS:
         if ticket["id"] == ticket_id:
@@ -39,21 +31,16 @@ def grade_task3(ticket_id, agent_answer):
 
     score = 0.0
     agent_answer_lower = agent_answer.lower()
-
     correct_department = correct["department"].lower()
     correct_urgency = correct["urgency"].lower()
     correct_reply = correct["suggested_reply"].lower()
 
-    # Check department — 0.3 points
     if correct_department in agent_answer_lower:
         score += 0.3
 
-    # Check urgency — 0.3 points
     if correct_urgency in agent_answer_lower:
         score += 0.3
 
-    # Check reply quality — 0.4 points
-    # Extract the reply part from agent's answer
     reply_part = ""
     for line in agent_answer.split("\n"):
         if line.lower().startswith("reply:"):
@@ -61,8 +48,6 @@ def grade_task3(ticket_id, agent_answer):
             break
 
     if reply_part:
-        # Get keywords from the correct reply
-        # Filter out common words, keep meaningful ones
         stop_words = {"the", "a", "an", "is", "are", "we", "you", "your",
                       "our", "in", "on", "at", "to", "for", "of", "and",
                       "or", "it", "this", "that", "will", "can", "if",
@@ -74,13 +59,11 @@ def grade_task3(ticket_id, agent_answer):
         ]
 
         if correct_keywords:
-            # Count how many keywords appear in the agent's reply
             matched = sum(
                 1 for word in correct_keywords
                 if word in reply_part
             )
             keyword_score = matched / len(correct_keywords)
-            # Give up to 0.4 points based on keyword overlap
             score += 0.4 * keyword_score
 
     return round(score, 2)

@@ -15,19 +15,25 @@ tasks:
   - id: task1
     name: Department Routing
     difficulty: easy
-    description: Route the ticket to the correct department (Billing, Technical, General)
+    description: Route the ticket to the correct department
     score_range: [0.0, 1.0]
 
   - id: task2
     name: Department and Urgency Classification
     difficulty: medium
-    description: Route the ticket and classify urgency level (Low, Medium, High)
+    description: Route the ticket and classify urgency level
     score_range: [0.0, 1.0]
 
   - id: task3
     name: Full Ticket Handling
     difficulty: hard
-    description: Route the ticket, classify urgency, and generate a suggested reply
+    description: Route, classify urgency, and generate a suggested reply
+    score_range: [0.0, 1.0]
+
+  - id: task4
+    name: Expert Escalation Manager
+    difficulty: expert
+    description: Route, classify urgency, decide escalation, give reason, and write reply
     score_range: [0.0, 1.0]
 
 entrypoint: environment.py

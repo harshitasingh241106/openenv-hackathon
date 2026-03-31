@@ -12,7 +12,8 @@ app = FastAPI(
 envs = {
     1: CustomerSupportEnv(task_number=1),
     2: CustomerSupportEnv(task_number=2),
-    3: CustomerSupportEnv(task_number=3)
+    3: CustomerSupportEnv(task_number=3),
+    4: CustomerSupportEnv(task_number=4)
 }
 
 class StepRequest(BaseModel):
@@ -69,9 +70,10 @@ def state(task_number: int = 1):
 def list_tasks():
     return {
         "tasks": [
-            {"id": "task1", "name": "Department Routing", "difficulty": "easy"},
-            {"id": "task2", "name": "Department and Urgency", "difficulty": "medium"},
-            {"id": "task3", "name": "Full Ticket Handling", "difficulty": "hard"}
+            {"id": "task1", "name": "Department Routing", "difficulty": "easy", "description": "Route ticket to correct department"},
+            {"id": "task2", "name": "Department and Urgency", "difficulty": "medium", "description": "Route ticket and classify urgency"},
+            {"id": "task3", "name": "Full Ticket Handling", "difficulty": "hard", "description": "Route, classify urgency, and generate reply"},
+            {"id": "task4", "name": "Expert Escalation Manager", "difficulty": "expert", "description": "Route, urgency, escalation decision, reason, and reply"}
         ]
     }
 
